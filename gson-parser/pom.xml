@@ -50,8 +50,6 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <mainClass>com.hartwig.mvn.immutables.Main</mainClass>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                     </archive>
 
