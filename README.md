@@ -5,7 +5,7 @@ This problem occurs when:
 3. We load all `TypeAdapterFactories` using a `ServiceLoader`.
 
 ### Symptoms
-The `maven-assembly-plugin` only writes to the `META-INF/services/com.google.gson.TypeAdapterFactory` in the `jar-with-dependencies` for the first dependency. 
+The `maven-assembly-plugin` only writes to the `META-INF/services/com.google.gson.TypeAdapterFactory` using the `jar-with-dependencies` assembly descriptor for the first dependency. 
 This causes the `ServiceLoader` to miss all `TypeAdapterFactories` not defined in the first dependency. 
 
 ### Quick Fix
