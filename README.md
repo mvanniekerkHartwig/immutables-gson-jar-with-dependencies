@@ -1,6 +1,6 @@
 ### Minimal reproduction of immutables gson jar with dependencies bug
-When using multiple dependencies that all contain Immutable and Gson TypeAdapter annotated interfaces
-the `META-INF/services/com.google.gson.TypeAdapterFactory` file is only written for the first dependency. 
+When using multiple dependencies that all contain Immutable and Gson TypeAdapter annotated interfaces the `META-INF/services/com.google.gson.TypeAdapterFactory` file is only written for the first dependency. 
+This causes the `ServiceLoader` to miss all `TypeAdapterFactories` not defined in the first dependency. 
 
 To reproduce, run:
 ```sh

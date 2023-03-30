@@ -53,9 +53,9 @@
                         </manifest>
                     </archive>
 
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
+                    <descriptors>
+                        <descriptor>src/assembly/services-with-dependencies.xml</descriptor>
+                    </descriptors>
                 </configuration>
             </plugin>
 
