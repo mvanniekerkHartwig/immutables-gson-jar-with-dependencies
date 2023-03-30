@@ -71,6 +71,13 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven.assembly.plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.hartwig.mvn.immutables</groupId>
+                            <artifactId>data-one</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

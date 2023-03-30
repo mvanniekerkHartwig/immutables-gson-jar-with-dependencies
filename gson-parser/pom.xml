@@ -37,13 +37,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.hartwig.mvn.immutables</groupId>
-                        <artifactId>data-one</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
-                </dependencies>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -61,7 +54,7 @@
                     </archive>
 
                     <descriptorRefs>
-                        <descriptorRef>services-with-dependencies</descriptorRef>
+                        <descriptorRef>jar-with-dependencies-svc-fix</descriptorRef>
                     </descriptorRefs>
                 </configuration>
             </plugin>

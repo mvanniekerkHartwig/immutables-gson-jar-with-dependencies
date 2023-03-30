@@ -1,24 +1,26 @@
-### Minimal reproduction of immutables gson jar with dependencies bug
-When using multiple dependencies that all contain Immutable and Gson TypeAdapter annotated interfaces the `META-INF/services/com.google.gson.TypeAdapterFactory` file is only written for the first dependency. 
+### Fixing the immutables gson jar with dependencies bug
+This problem occurs when:
+1. We depend on multiple projects that provide Immutables objects and Gson type adapters.
+2. We package our project using the maven assembly plugin `jar-with-dependencies` assembly descriptor
+3. We load all `TypeAdapterFactories` using a `ServiceLoader`.
+
+### Symptoms
+The `maven-assembly-plugin` only writes to the `META-INF/services/com.google.gson.TypeAdapterFactory` in the `jar-with-dependencies` for the first dependency. 
 This causes the `ServiceLoader` to miss all `TypeAdapterFactories` not defined in the first dependency. 
 
-To reproduce, run:
+### Quick Fix
+The problem can be fixed through the maven assembly plugin. 
+By default, the `jar-with-dependencies` assembly descriptor does not merge `META-INF/services` files.
+By creating our own assembly descriptor we can configure the plugin to merge the files. 
+We can package the custom assembly descriptor with one of the Immutables data providers and import it in the assembly plugin.
+
+To test the project, run:
 ```sh
 mvn clean install
 java -jar gson-parser/target/gson-parser-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
-The problem is caused by `META-INF/services` not merging the `TypeAdapterFactory` services, but only copying it from dependency #1.
-`gson-parser/target/gson-parser-1.0-SNAPSHOT-jar-with-dependencies.jar!/META-INF/services/com.google.gson.TypeAdapterFactory`
-has the following contents:
-
-```
-com.hartwig.mvn.immutables.GsonAdaptersDataOne
-```
-
-But I would expect it to have this:
-
-```
-com.hartwig.mvn.immutables.GsonAdaptersDataOne
-com.hartwig.mvn.immutables.GsonAdaptersDataTwo
-```
+### Permanent fixes
+- Mention this issue in the immutables gson documentation.
+- Immutables Gson should provide an alternative to the `ServiceLoader`, like loading the `TypeAdapterFactories` through an annotation processor.
+- Immutables Gson should include fixed assembly descriptors that users can just plug into their assembly plugins.
